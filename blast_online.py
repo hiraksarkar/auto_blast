@@ -100,17 +100,20 @@ for name in rRNA_seq:
 for name in illumina_seq:
     arguments += [(slugify(name), str(illumina_seq[name]))]  
 
+offset = len(rRNA_seq)
 
-print("Try blasting",len(arguments[100:]), " sequences")
-for i in range(len(arguments[100:])):
+print("Try blasting",len(arguments[offset:]), " sequences")
+for i in range(len(arguments[offset:])):
     repeat = True
-    arg = arguments[i+100]
+    arg = arguments[i+offset]
 
     while(repeat):
         done, success, ResponseData = get_best_hits_from_blast_mono(arg)
         if done:
             repeat = False
         elif success:
+            # construct dataframe
+
             time.sleep(10)
             repeat = False
         else:
